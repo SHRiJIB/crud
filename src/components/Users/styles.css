@@ -1,0 +1,35 @@
+.users {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dbddbd;
+  height: calc(100vh - 80px);
+}
+
+.title {
+  padding: 10px;
+}
+
+.user {
+  margin: 10px;
+  position: relative;
+  border: 1px solid black;
+}
+
+.details {
+  padding: 10px;
+}
+.edit {
+  font-size: 20px;
+  top: 5px;
+  right: 30px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.delete {
+  font-size: 20px;
+  top: 5px;
+  right: 5px;
+  position: absolute;
+  cursor: pointer;
+}
