@@ -22,7 +22,7 @@ const Users = ({ Users, setUsers, setUserId }) => {
         <div className="user" key={index}>
           <div className="details">
             <h3>Name : {user.name}</h3>
-            <p> Age : {user.age}</p>
+            {user.age !== "" && <p> Age : {user.age}</p>}
             {user.gender !== "" && <p> Gender : {user.gender}</p>}
           </div>
 
