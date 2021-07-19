@@ -16,13 +16,13 @@ const UserDetailsForm = ({ Users, setUsers, userId, setUserId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (user.name.length === 0) return;
     if (currentUser) {
       setUsers((prev) =>
         prev.map((oldUser, index) => (index === userId ? user : oldUser))
       );
     } else {
-      if (user.name.length > 0 || user.age.length > 0 || user.gender.length > 0)
-        setUsers([...Users, user]);
+      setUsers([...Users, user]);
     }
     clear();
   };

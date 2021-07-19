@@ -11,7 +11,7 @@ const Users = ({ Users, setUsers, setUserId }) => {
   if (Users.length === 0) {
     return (
       <div>
-        <h1>No user is added.</h1>
+        <h1>No user is added yet.</h1>
       </div>
     );
   }
