@@ -23,7 +23,7 @@ const Users = ({ Users, setUsers, setUserId }) => {
           <div className="details">
             <h3>Name : {user.name}</h3>
             <p> Age : {user.age}</p>
-            {user.gender !== "null" && <p> Gender : {user.gender}</p>}
+            {user.gender !== "" && <p> Gender : {user.gender}</p>}
           </div>
 
           <FiEdit onClick={() => setUserId(index)} className="edit" />

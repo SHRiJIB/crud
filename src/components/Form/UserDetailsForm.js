@@ -5,7 +5,7 @@ const UserDetailsForm = ({ Users, setUsers, userId, setUserId }) => {
   const [user, setUser] = useState({
     name: "",
     age: "",
-    gender: "select your gender",
+    gender: "",
   });
 
   const currentUser = userId !== null ? Users[userId] : null;
@@ -32,7 +32,7 @@ const UserDetailsForm = ({ Users, setUsers, userId, setUserId }) => {
     setUser({
       name: "",
       age: "",
-      gender: "select your gender",
+      gender: "",
     });
   };
 
@@ -73,10 +73,10 @@ const UserDetailsForm = ({ Users, setUsers, userId, setUserId }) => {
             value={user.gender}
             onChange={handleChange}
           >
-            <option value="null">select</option>
+            <option value="">select</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
-            <option value="null">Prefer not to say</option>
+            <option value="">Prefer not to say</option>
           </select>
         </div>
         <button type="submit">{userId !== null ? "Update" : "Add"}</button>
