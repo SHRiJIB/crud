@@ -16,7 +16,7 @@ const UserDetailsForm = ({ Users, setUsers, userId, setUserId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (user.name.length === 0) return;
+    if (user.name.length === 0 || user.age === "0") return;
     if (currentUser) {
       setUsers((prev) =>
         prev.map((oldUser, index) => (index === userId ? user : oldUser))
@@ -57,7 +57,7 @@ const UserDetailsForm = ({ Users, setUsers, userId, setUserId }) => {
         <div className="input-field">
           <label htmlFor="age">Age:</label>
           <input
-            type="text"
+            type="number"
             placeholder="Your age"
             id="age"
             name="age"
