@@ -3,9 +3,21 @@ import "./styles.css";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 
-const Users = ({ Users, setUsers, setUserId }) => {
-  const handleDelete = (id) => {
-    setUsers((prev) => prev.filter((user, index) => index !== id));
+
+interface UserInterface {
+  name:string,
+  age?:string,
+  gender?:string
+}
+
+interface Props {
+  Users : UserInterface[],
+  setUsers: (Users:UserInterface[]) => void,
+  setUserId:(id:number | null) => void,
+}
+const Users:React.FC<Props> = ({ Users, setUsers, setUserId }) => {
+  const handleDelete = (id : number) => {
+    setUsers(Users.filter((user, index) => index !== id));
   };
 
   if (Users.length === 0) {

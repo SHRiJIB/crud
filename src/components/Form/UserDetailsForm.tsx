@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 
-const UserDetailsForm = ({ Users, setUsers, userId, setUserId }) => {
-  const [user, setUser] = useState({
+
+interface UserInterface {
+  name:string,
+  age?:string,
+  gender?:string
+}
+
+interface Props {
+  Users : UserInterface[],
+  setUsers: (Users:UserInterface[]) => void,
+  userId:number | null,
+  setUserId:(id:number | null) => void,
+}
+const UserDetailsForm : React.FC<Props> = ({ Users, setUsers, userId, setUserId }) => {
+  const [user, setUser] = useState<UserInterface>({
     name: "",
     age: "",
     gender: "",
@@ -10,16 +23,16 @@ const UserDetailsForm = ({ Users, setUsers, userId, setUserId }) => {
 
   const currentUser = userId !== null ? Users[userId] : null;
 
-  const handleChange = (e) => {
+  const handleChange = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e : React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (user.name.length === 0 || user.age === "0") return;
     if (currentUser) {
-      setUsers((prev) =>
-        prev.map((oldUser, index) => (index === userId ? user : oldUser))
+      setUsers(
+        Users.map((oldUser, index) => (index === userId ? user : oldUser))
       );
     } else {
       setUsers([...Users, user]);
