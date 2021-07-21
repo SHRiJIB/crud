@@ -3,12 +3,8 @@ import Users from "../../components/Users/Users";
 import Form from "../../components/Form/UserDetailsForm";
 import {Container, Grid} from "@material-ui/core"
 import useStyles from "./styles"
+import {UserInterface} from "../../Interfaces"  
 
-interface UserInterface {
-  name:string,
-  age?:string,
-  gender?:string
-}
 const UserDetails = () => {
   const classes = useStyles();
   const [users, setUsers] = useState<UserInterface[]>([]);

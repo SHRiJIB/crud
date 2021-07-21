@@ -1,13 +1,9 @@
 import { Button, FormControl, Grid, InputLabel, MenuItem, Paper, Select, TextField, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import "./styles.css";
+import {UserInterface} from "../../Interfaces"
 
 import useStyles from "./styles";
-interface UserInterface {
-  name:string,
-  age?:string,
-  gender?:string
-}
+
 
 interface Props {
   Users : UserInterface[],
@@ -95,7 +91,7 @@ const UserDetailsForm : React.FC<Props> = ({ Users, setUsers, userId, setUserId 
           <Select labelId="gender" id="gender" name="gender" value={user.gender} onChange={handleGenderChange} fullWidth>
             <MenuItem value="Male">Male</MenuItem>
             <MenuItem value="Female">Female</MenuItem>
-            <MenuItem value="">Prefer not to say</MenuItem>
+            <MenuItem value="Prefer not to say">Prefer not to say</MenuItem>
           </Select>
         </FormControl>
         <div>

@@ -13,8 +13,8 @@ export default makeStyles((theme) => ({
     form: {
         display: "flex",
         flexDirection:"column",
-        justifyContent: "center",
-        
+        justifyContent: "space-between",
+        height: "100%"
     },
     
 }))

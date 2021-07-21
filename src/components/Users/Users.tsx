@@ -3,13 +3,9 @@ import "./styles.css";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { Grid, Typography } from "@material-ui/core";
+import {UserInterface} from "../../Interfaces"
 
 
-interface UserInterface {
-  name:string,
-  age?:string,
-  gender?:string
-}
 
 interface Props {
   Users : UserInterface[],
@@ -37,7 +33,7 @@ const Users:React.FC<Props> = ({ Users, setUsers, setUserId }) => {
           <div className="details">
             <h3>Name : {user.name}</h3>
             {user.age !== "" && <p> Age : {user.age}</p>}
-            {user.gender !== "" && <p> Gender : {user.gender}</p>}
+            {(user.gender !== "" && user.gender !== "Prefer not to say") && <p> Gender : {user.gender}</p>}
           </div>
 
           <FiEdit onClick={() => setUserId(index)} className="edit" />
