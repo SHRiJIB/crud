@@ -11,21 +11,16 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { UserInterface } from "../../Interfaces";
+import { useStoreActions } from "../../TypedHooks";
 
 import useStyles from "./styles";
 
 interface Props {
   Users: UserInterface[];
-  setUsers: (Users: UserInterface[]) => void;
   userId: number | null;
   setUserId: (id: number | null) => void;
 }
-const UserDetailsForm: React.FC<Props> = ({
-  Users,
-  setUsers,
-  userId,
-  setUserId,
-}) => {
+const UserDetailsForm: React.FC<Props> = ({ Users, userId, setUserId }) => {
   const classes = useStyles();
   const [user, setUser] = useState<UserInterface>({
     name: "",
@@ -34,6 +29,9 @@ const UserDetailsForm: React.FC<Props> = ({
   });
 
   const currentUser = userId !== null ? Users[userId] : null;
+
+  const addUser = useStoreActions((actions) => actions.users.addUser);
+  const updateUser = useStoreActions((actions) => actions.users.updateUser);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -53,11 +51,14 @@ const UserDetailsForm: React.FC<Props> = ({
     e.preventDefault();
     if (user.name.length === 0 || user.age === "0") return;
     if (currentUser) {
-      setUsers(
-        Users.map((oldUser, index) => (index === userId ? user : oldUser))
-      );
+      // setUsers(
+      //   Users.map((oldUser, index) => (index === userId ? user : oldUser))
+      // );
+
+      updateUser({ user, id: userId });
     } else {
-      setUsers([...Users, user]);
+      // setUsers([...Users, user]);
+      addUser(user);
     }
     clear();
   };

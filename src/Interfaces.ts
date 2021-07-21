@@ -5,6 +5,7 @@ export interface UserInterface {
     age?:string,
     gender?:string
   }
+  
 
   export interface StoreModel {
     users:UserInterface[],

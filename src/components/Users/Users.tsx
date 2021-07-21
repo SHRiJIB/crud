@@ -4,15 +4,17 @@ import { UserInterface } from "../../Interfaces";
 import useStyles from "./styles";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { useStoreActions } from "../../TypedHooks";
 interface Props {
   Users: UserInterface[];
-  setUsers: (Users: UserInterface[]) => void;
   setUserId: (id: number | null) => void;
 }
-const Users: React.FC<Props> = ({ Users, setUsers, setUserId }) => {
+const Users: React.FC<Props> = ({ Users, setUserId }) => {
   const classes = useStyles();
+  const deleteUser = useStoreActions((actions) => actions.users.deleteUser);
   const handleDelete = (id: number) => {
-    setUsers(Users.filter((user, index) => index !== id));
+    // setUsers(Users.filter((user, index) => index !== id));
+    deleteUser(id);
   };
 
   if (Users.length === 0) {
