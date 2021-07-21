@@ -8,13 +8,15 @@ export default makeStyles((theme) => ({
     paper: {
         padding: theme.spacing(2),
         maxWidth:"300px",
-        height:"250px"
+        height:"300px",
+        marginLeft:"20px", 
     },
     form: {
         display: "flex",
         flexDirection:"column",
         justifyContent: "space-between",
-        height: "100%"
+        height: "80%",
+        marginTop:"10px"
     },
     
 }))

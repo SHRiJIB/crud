@@ -1,6 +1,6 @@
 import UserDetails from "./Pages/UserDetails/UserDetails";
 
-function App() {
+function App(): JSX.Element {
   return (
     <>
       <UserDetails />
