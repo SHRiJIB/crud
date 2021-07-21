@@ -2,6 +2,7 @@ import React from "react";
 import "./styles.css";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinLine } from "react-icons/ri";
+import { Grid, Typography } from "@material-ui/core";
 
 
 interface UserInterface {
@@ -28,8 +29,9 @@ const Users:React.FC<Props> = ({ Users, setUsers, setUserId }) => {
     );
   }
   return (
+    <Grid item>
     <div className="users">
-      <h1 className="title">Users</h1>
+      <Typography variant="h3" color="textPrimary">Users</Typography>
       {Users.map((user, index) => (
         <div className="user" key={index}>
           <div className="details">
@@ -46,6 +48,7 @@ const Users:React.FC<Props> = ({ Users, setUsers, setUserId }) => {
         </div>
       ))}
     </div>
+    </Grid>
   );
 };
 

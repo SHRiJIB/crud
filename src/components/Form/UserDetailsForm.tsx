@@ -1,7 +1,8 @@
+import { Button, FormControl, Grid, InputLabel, MenuItem, Paper, Select, TextField, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 
-
+import useStyles from "./styles";
 interface UserInterface {
   name:string,
   age?:string,
@@ -15,6 +16,8 @@ interface Props {
   setUserId:(id:number | null) => void,
 }
 const UserDetailsForm : React.FC<Props> = ({ Users, setUsers, userId, setUserId }) => {
+
+  const classes = useStyles();
   const [user, setUser] = useState<UserInterface>({
     name: "",
     age: "",
@@ -23,10 +26,13 @@ const UserDetailsForm : React.FC<Props> = ({ Users, setUsers, userId, setUserId 
 
   const currentUser = userId !== null ? Users[userId] : null;
 
-  const handleChange = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e : React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-
+  const handleGenderChange = (event : React.ChangeEvent<{name?: string | number | symbol | any,value:unknown}>) => {
+    setUser({ ...user, [event.target.name]: event.target.value });
+    console.log(user);
+  }
   const handleSubmit = (e : React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (user.name.length === 0 || user.age === "0") return;
@@ -49,52 +55,56 @@ const UserDetailsForm : React.FC<Props> = ({ Users, setUsers, userId, setUserId 
     });
   };
 
+  
+
   useEffect(() => {
     if (currentUser) setUser(currentUser);
   }, [currentUser]);
   return (
-    <div className="form-container">
-      <h1>Fill up the details</h1>
-      <form onSubmit={handleSubmit} className="form">
-        <div className="input-field">
-          <label htmlFor="name">Name:</label>
-          <input
+    <Grid item>
+      <Typography variant="h3" >Fill up the details</Typography>
+      <Paper className={classes.paper}>
+
+      
+      <form className={classes.form} onSubmit={handleSubmit} >
+        
+          <TextField
             type="text"
-            placeholder="Your name"
-            id="name"
+            label="Name"
+            variant="outlined"
             name="name"
             value={user.name}
             onChange={handleChange}
+            fullWidth
+            
           />
-        </div>
-        <div className="input-field">
-          <label htmlFor="age">Age:</label>
-          <input
+       
+      
+          <TextField
             type="number"
-            placeholder="Your age"
-            id="age"
+            label="Age"
+            variant="outlined"
             name="age"
             value={user.age}
             onChange={handleChange}
+            fullWidth
           />
+        
+        <FormControl className={classes.formControl}>
+          <InputLabel id="gender">Gender</InputLabel>
+          <Select labelId="gender" id="gender" name="gender" value={user.gender} onChange={handleGenderChange} fullWidth>
+            <MenuItem value="Male">Male</MenuItem>
+            <MenuItem value="Female">Female</MenuItem>
+            <MenuItem value="">Prefer not to say</MenuItem>
+          </Select>
+        </FormControl>
+        <div>
+          <Button variant="contained" color="primary" type="submit" >{userId !== null ? "Update" : "Add"}</Button>
         </div>
-        <div className="input-field">
-          <label htmlFor="gender">Gender:</label>
-          <select
-            name="gender"
-            id="gender"
-            value={user.gender}
-            onChange={handleChange}
-          >
-            <option value="">select</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="">Prefer not to say</option>
-          </select>
-        </div>
-        <button type="submit">{userId !== null ? "Update" : "Add"}</button>
+        
       </form>
-    </div>
+      </Paper>
+    </Grid>
   );
 };
 
