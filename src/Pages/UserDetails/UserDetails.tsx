@@ -4,6 +4,7 @@ import Form from "../../components/Form/UserDetailsForm";
 import { Container, Grid } from "@material-ui/core";
 import useStyles from "./styles";
 import { useStoreState } from "../../TypedHooks";
+
 const UserDetails = () => {
   const classes = useStyles();
   const users = useStoreState((state) => state.users.users);
