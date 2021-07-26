@@ -7,6 +7,7 @@ import {
   IReactFormProps,
   MLFormBuilder,
 } from "react-forms";
+import * as Yup from "yup";
 import { UserInterface } from "../../Interfaces";
 import { useStoreActions } from "../../TypedHooks";
 
@@ -29,6 +30,7 @@ const MyForm: React.FC<IReactFormProps> = (props) => {
     isReadOnly = false,
     formikProps,
   } = props;
+
   const { setValues } = useFormikContext();
   useEffect(() => {
     setValues(values);
@@ -61,6 +63,16 @@ const UserDetailsForm: React.FC<Props> = ({ Users, userId, setUserId }) => {
   const addUser = useStoreActions((actions) => actions.users.addUser);
   const updateUser = useStoreActions((actions) => actions.users.updateUser);
 
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, "Too short!!")
+      .max(100, "Too long!!")
+      .required("Required"),
+    age: Yup.number()
+      .min(1, "Please Enter a valid age")
+      .max(130, "Please enter a valid age!!"),
+    gender: Yup.string(),
+  });
   const handleSubmit = (
     e: UserInterface,
     { resetForm }: { resetForm: any }
@@ -133,7 +145,11 @@ const UserDetailsForm: React.FC<Props> = ({ Users, userId, setUserId }) => {
       <Paper className={classes.paper}>
         <Typography variant="h4">Fill up the details</Typography>
 
-        <Formik initialValues={user} onSubmit={handleSubmit}>
+        <Formik
+          initialValues={user}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
           {(formikProps) => (
             <MyForm
               formId="userForm"
