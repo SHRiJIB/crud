@@ -1,11 +1,10 @@
 import UserDetails from "./Pages/UserDetails/UserDetails";
-// import TestReactForms from "./TestReactForms";
-
+import React from "react";
 function App(): JSX.Element {
+  console.log(React.useCallback);
   return (
     <>
       <UserDetails />
-      {/* <TestReactForms /> */}
     </>
   );
 }

@@ -13,7 +13,6 @@ const Users: React.FC<Props> = ({ Users, setUserId }) => {
   const classes = useStyles();
   const deleteUser = useStoreActions((actions) => actions.users.deleteUser);
   const handleDelete = (id: number) => {
-    // setUsers(Users.filter((user, index) => index !== id));
     deleteUser(id);
   };
 

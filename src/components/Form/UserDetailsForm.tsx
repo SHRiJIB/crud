@@ -1,4 +1,5 @@
 import { Grid, Paper, Typography } from "@material-ui/core";
+import { useFormikContext } from "formik";
 import React, { useEffect, useState } from "react";
 import { FormConfig, IFormActionProps, ReactForm } from "react-forms";
 import { UserInterface } from "../../Interfaces";
@@ -74,6 +75,7 @@ const UserDetailsForm: React.FC<Props> = ({ Users, userId, setUserId }) => {
     {
       type: "select",
       valueKey: "gender",
+
       fieldProps: {
         label: "Gender",
         options: [
@@ -82,15 +84,15 @@ const UserDetailsForm: React.FC<Props> = ({ Users, userId, setUserId }) => {
           { name: "Prefer not to say", value: "Prefer not to say" },
         ],
       },
-      styles: { width: "50%" },
     },
   ];
   const actionConfig: IFormActionProps = {
-    submitButtonText: "ADD",
+    submitButtonText: currentUser === null ? "ADD" : "UPDATE",
   };
   useEffect(() => {
     if (currentUser) setUser(currentUser);
   }, [currentUser]);
+
   return (
     <Grid item>
       <Paper className={classes.paper}>
