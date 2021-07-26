@@ -1,7 +1,12 @@
 import { Grid, Paper, Typography } from "@material-ui/core";
-import { useFormikContext } from "formik";
+import { Formik, useFormikContext } from "formik";
 import React, { useEffect, useState } from "react";
-import { FormConfig, IFormActionProps, ReactForm } from "react-forms";
+import {
+  FormConfig,
+  IFormActionProps,
+  IReactFormProps,
+  MLFormBuilder,
+} from "react-forms";
 import { UserInterface } from "../../Interfaces";
 import { useStoreActions } from "../../TypedHooks";
 
@@ -12,6 +17,36 @@ interface Props {
   userId: number | null;
   setUserId: (id: number | null) => void;
 }
+
+const MyForm: React.FC<IReactFormProps> = (props) => {
+  const {
+    values,
+    config,
+    formId,
+    actionConfig,
+    formSettings,
+    isInProgress = false,
+    isReadOnly = false,
+    formikProps,
+  } = props;
+  const { setValues } = useFormikContext();
+  useEffect(() => {
+    setValues(values);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values]);
+
+  return (
+    <MLFormBuilder
+      schema={config}
+      formId={formId}
+      actionConfig={actionConfig}
+      settings={{ ...formSettings, isReadOnly }}
+      formikProps={formikProps}
+      isInProgress={isInProgress}
+    />
+  );
+};
+
 const UserDetailsForm: React.FC<Props> = ({ Users, userId, setUserId }) => {
   const classes = useStyles();
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -97,14 +132,19 @@ const UserDetailsForm: React.FC<Props> = ({ Users, userId, setUserId }) => {
     <Grid item>
       <Paper className={classes.paper}>
         <Typography variant="h4">Fill up the details</Typography>
-        <ReactForm
-          initialValues={user}
-          config={inputConfig}
-          formId="USER DETAILS"
-          actionConfig={actionConfig}
-          onSubmit={handleSubmit}
-          isInProgress={submitting}
-        />
+
+        <Formik initialValues={user} onSubmit={handleSubmit}>
+          {(formikProps) => (
+            <MyForm
+              formId="userForm"
+              values={user}
+              config={inputConfig}
+              actionConfig={actionConfig}
+              formikProps={formikProps}
+              isInProgress={submitting}
+            />
+          )}
+        </Formik>
       </Paper>
     </Grid>
   );
